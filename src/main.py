@@ -73,27 +73,6 @@ def put_todo(id):
     updated_item = updated_item.serialize()
     return jsonify(updated_item), 200
 
-# def edit_user_todos(id):
-#     body = request.get_json()
-#     exists = Todo.query.filter_by(id=id)
-#     user_todo = list(map(lambda x: x.serialize(), exists))
-#     print(user_todo)
-    
-#     # if exists is None:
-#     #     raise APIException('The user does not exist', status_code=400)
-#     # if len(user_todos) < 1:
-#     #     raise APIException('The list is empty', status_code=400)
-    
-#     for task in user_todo:
-#         if task['id'] == id:
-#             task['done'] = body['done']
-#         db.session.commit()
-    
-#     updated_item = Todo.query.get(id)
-#     updated_item = updated_item.serialize()
-#     return jsonify(updated_item), 200
-    
-
 @app.route('/todo/<username>/<int:id>', methods=['DELETE'])
 def delete_todo(username,id):
 
