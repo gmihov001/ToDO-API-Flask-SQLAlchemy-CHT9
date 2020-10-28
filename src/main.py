@@ -82,10 +82,9 @@ def delete_todo(username, id):
     db.session.commit()
     
     todos = Todo.query.filter_by(username = username)
-    print("TODOS!!!", todos)
-    # todos = list(map(lambda x: x.serialize(), todos))
-    return jsonify(todos),200
-
+    todos = list(map(lambda x: x.serialize(), todos))
+    print('------Todos-------', todos)
+    return jsonify(todos), 200
 
 
 # this only runs if `$ python src/main.py` is executed
