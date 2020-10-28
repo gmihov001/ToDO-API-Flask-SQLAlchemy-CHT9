@@ -76,13 +76,14 @@ def delete_todo(username, id):
     todo = Todo.query.get(id)
 
     if todo is None:
-        raise APIException('Item with ID [' + id + '] does not exist ', status_code = 400) 
+        raise APIException('Item with ID [' + str(id) + '] does not exist ', status_code = 400) 
     
     db.session.delete(todo)
     db.session.commit()
     
     todos = Todo.query.filter_by(username = username)
-    todos = list(map(lambda x: x.serialize(), todos))
+    print("TODOS!!!", todos)
+    # todos = list(map(lambda x: x.serialize(), todos))
     return jsonify(todos),200
 
 
