@@ -73,15 +73,17 @@ def put_todo(id):
     updated_item = updated_item.serialize()
     return jsonify(updated_item), 200
 
-@app.route('/todo/<username>/<int:id>', methods=['DELETE'])
-def delete_todo(username,id):
-
+@app.route('/todo/<int:id>', methods=['DELETE'])
+def delete_todo(id):
     todo = Todo.query.get(id)
+
     if todo is None:
-        raise APIException('the todo is not exist', status_code = 400) 
+        raise APIException('Item with ID [' + id + '] does not exist ', status_code = 400) 
+    
     db.session.delete(todo)
     db.session.commit()
-    todos = Todo.query.filter_by(username = username)
+    
+    todos = Todo.query.get(use
     todos = list(map(lambda x: x.serialize(), todos))
     return jsonify(todos), 200
 
