@@ -42,14 +42,12 @@ def handle_hello():
 
 @app.route('/todo/<username>', methods=['GET'])
 def get_todos(username):
-
     todos = Todo.query.filter_by(username = username)
     todos = list(map(lambda x: x.serialize(), todos))
     return jsonify(todos), 200
 
 @app.route('/todo/<username>', methods=['POST'])
 def post_todo(username):
-
     body = request.get_json()
     exists = Todo.query.filter_by(username = username, label = body['label']).first()
     if exists is not None:
@@ -73,8 +71,8 @@ def put_todo(id):
     updated_item = updated_item.serialize()
     return jsonify(updated_item), 200
 
-@app.route('/todo/<int:id>', methods=['DELETE'])
-def delete_todo(id):
+@app.route('/todo/<username>/<int:id>', methods=['DELETE'])
+def delete_todo(username, id):
     todo = Todo.query.get(id)
 
     if todo is None:
@@ -83,9 +81,9 @@ def delete_todo(id):
     db.session.delete(todo)
     db.session.commit()
     
-    todos = Todo.query.get(use
+    todos = Todo.query.filter_by(username = username)
     todos = list(map(lambda x: x.serialize(), todos))
-    return jsonify(todos), 200
+    return jsonify(todos),200
 
 
 
