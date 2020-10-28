@@ -45,7 +45,7 @@ def get_todos(username):
 
     todos = Todo.query.filter_by(username = username)
     todos = list(map(lambda x: x.serialize(), todos))
-    return jsonify(todos),200
+    return jsonify(todos), 200
 
 @app.route('/todo/<username>', methods=['POST'])
 def post_todo(username):
